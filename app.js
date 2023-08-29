@@ -3,20 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var dotenv = require('dotenv');
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+dotenv.config();
 var app = express();
-// const mongoose = require("mongoose");
-// mongoose.set("strictQuery", false);
-// const mongoDB = "mongodb+srv://myAtlasDBUser:v*DseA57w6HKqH-@myatlasclusteredu.clwk2p6.mongodb.net/?retryWrites=true&w=majority";
-
-// main().catch((err) => console.log(err));
-// async function main() {
-//   await mongoose.connect(mongoDB);
-// }
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = process.env.MONGOLAB_URI;
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
